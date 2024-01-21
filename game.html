@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    #game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #info {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    #score {
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    #winner {
+      font-size: 2em;
+      color: #2ecc71;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 5px;
+    }
+
+    .cell {
+      width: 100px;
+      height: 100px;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: #ecf0f1;
+      color: #e74c3c;
+    }
+
+    .cell:hover {
+      background-color: #bdc3c7;
+    }
+
+    #reset-btn {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 1.2em;
+      background-color: #27ae60;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+  <title>Vrolijk Tic Tac Toe</title>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Informatie over de huidige speler -->
+    <div id="info"><span id="currentPlayer">X</span> is aan de beurt</div>
+    
+    <!-- Score-informatie -->
+    <div id="score">Score: Speler X - <span id="scoreX">0</span>, Speler O - <span id="scoreO">0</span></div>
+    
+    <!-- Weergave van de winnaar (verborgen totdat er een winnaar is) -->
+    <div id="winner"></div>
+    
+    <!-- Speelbord -->
+    <div id="board"></div>
+    
+    <!-- Reset-knop voor scores -->
+    <button id="reset-btn" onclick="resetBoard()">Reset Scores</button>
+  </div>
+
+  <script>
+    // JavaScript-code hier invoegen
+
+    // Variabelen voor HTML-elementen
+    const board = document.getElementById('board');
+    const currentPlayerSpan = document.getElementById('currentPlayer');
+    const scoreXSpan = document.getElementById('scoreX');
+    const scoreOSpan = document.getElementById('scoreO');
+    const winnerDiv = document.getElementById('winner');
+    const resetBtn = document.getElementById('reset-btn');
+
+    // Variabelen voor spellogica
+    let currentPlayer = 'X';
+    let cells = ['', '', '', '', '', '', '', '', ''];
+    let scoreX = 0;
+    let scoreO = 0;
+
+    // Functie om het speelbord te renderen
+    function renderBoard() {
+      board.innerHTML = '';
+      cells.forEach((value, index) => {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.textContent = value;
+        cell.addEventListener('click', () => cellClick(index));
+        board.appendChild(cell);
+      });
+    }
+
+    // Functie die wordt aangeroepen bij een klik op een cel
+    function cellClick(index) {
+      if (cells[index] === '' && !checkWinner()) {
+        cells[index] = currentPlayer;
+        renderBoard();
+        if (checkWinner()) {
+          updateScore();
+          displayWinner();
+        } else if (cells.every(cell => cell !== '')) {
+          displayWinner('Gelijkspel!');
+        } else {
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+          currentPlayerSpan.textContent = currentPlayer;
+        }
+      }
+    }
+
+    // Functie om te controleren of er een winnaar is
+    function checkWinner() {
+      const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // rijen
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // kolommen
+        [0, 4, 8], [2, 4, 6]             // diagonalen
+      ];
+
+      return winPatterns.some(pattern => {
+        const [a, b, c] = pattern;
+        return cells[a] !== '' && cells[a] === cells[b] && cells[a] === cells[c];
+      });
+    }
+
+    // Functie om de score bij te werken en te controleren op eindscore
+    function updateScore() {
+      if (checkWinner()) {
+        if (currentPlayer === 'X') {
+          scoreX++;
+        } else {
+          scoreO++;
+        }
+
+        scoreXSpan.textContent = scoreX;
+        scoreOSpan.textContent = scoreO;
+
+        // Controleer op eindscore (bijv. 5 punten)
+        if (scoreX === 5 || scoreO === 5) {
+          displayWinner(`Speler ${currentPlayer} heeft het spel gewonnen!`);
+          disableBoard();
+        }
+      }
+    }
+
+    // Functie om het spel te resetten
+    function resetGame() {
+      cells = ['', '', '', '', '', '', '', '', ''];
+      currentPlayer = 'X';
+      currentPlayerSpan.textContent = currentPlayer;
+      renderBoard();
+    }
+
+    // Functie om de winnaar weer te geven en het spel te resetten na een korte vertraging
+    function displayWinner(message = '') {
+      winnerDiv.textContent = message;
+      winnerDiv.style.display = 'block';
+      setTimeout(() => {
+        winnerDiv.style.display = 'none';
+        resetGame();
+        enableBoard();
+      }, 2000);
+    }
+
+    // Functie om het bord te resetten en de scores te resetten
+    function resetBoard() {
+      scoreX = 0;
+      scoreO = 0;
+      scoreXSpan.textContent = scoreX;
+      scoreOSpan.textContent = scoreO;
+      resetGame();
+      enableBoard();
+    }
+
+    // Functie om het bord uit te schakelen voor klikken
+    function disableBoard() {
+      board.style.pointerEvents = 'none';
+    }
+
+    // Functie om het bord weer in te schakelen voor klikken
+    function enableBoard() {
+      board.style.pointerEvents = 'auto';
+    }
+
+    // Laad het initiële speelbord
+    renderBoard();
+  </script>
+</body>
+</html>

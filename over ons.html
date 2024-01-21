@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <title>Je Website</title>
+    <script>
+        function showContent(section) {
+            var displayArea = document.getElementById('display-area');
+            var buttonsContainer = document.getElementById('buttons');
+
+            // Verplaats de knoppen naar onder elkaar
+            buttonsContainer.style.flexDirection = 'column';
+
+            switch (section) {
+                case 'foto':
+                    displayArea.innerHTML = '<img src="foto.jpg" alt="">';
+                    break;
+                case 'contact':
+                    displayArea.innerHTML = '<p>Contact Informatie: 9022589@student.zadkine.nl </p>';
+                    break;
+                case 'ervaring':
+                    displayArea.innerHTML = '<p>Werkervaring: Ik werk als e-commerce en kassamedewerker bij de Plus.</p>';
+                    break;
+                case 'opleiding':
+                    displayArea.innerHTML = '<p>Opleiding: Ik doe software development niveau 4 aan het Tcr.</p>';
+                    break;
+                case 'vaardigheden':
+                    displayArea.innerHTML = '<p>Programmeer Vaardigheden: IK kan werken met Javascript, html-css en php. </p>';
+                    break;
+                default:
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Speel voor het goede doel</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="home pagina.html">Home</a></li>
+        <li class="dropdown">
+            <a href="#">portofolio</a>
+            <div class="dropdown-content">
+                <a href="ons doel.html">ons doel</a>
+                <a href="waarom dit doel.html">waarom dit doel</a>
+                <a href="over ons.html">over mij</a>
+            </div>
+        </li>
+        <li class="dropdown2">
+            <a href="#">onze game</a>
+            <div class="dropdown-content2">
+                <a href="favo game.html">favo game</a>
+                <a href="uitleg game.html">uitleg game</a>
+                <a href="speel de game.html">speel de game</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<section>
+    <div id="buttons">
+        <button onclick="showContent('foto')">Foto</button>
+        <button onclick="showContent('contact')">Contact</button>
+        <button onclick="showContent('ervaring')">Ervaring</button>
+        <button onclick="showContent('opleiding')">Opleiding</button>
+        <button onclick="showContent('vaardigheden')">Vaardigheden</button>
+    </div>
+    <div id="display-area">
+
+    </div>
+</section>
+
+<footer>
+    <p>Contact: 9021703@student.zadkine.nl</p>
+    <p>&copy; 2023 Je Website. Alle rechten voorbehouden.</p>
+</footer>
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+
+    header, nav {
+        width: 100%;
+        background-color: #000000; 
+        color: white;
+        text-align:center ;
+        padding: 10px 0;
+    }
+
+    nav ul {
+        padding: 0;
+        list-style: none;
+        display: inline;
+        justify-content: space-around;
+    }
+
+    nav ul li {
+        margin: 0 50px;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px; 
+    }
+
+    button {
+        margin-bottom: 10px;
+    }
+
+    #display-area {
+        color: white;
+        text-align: center;
+    }
+
+    #display-area img {
+        max-width: 75%; /* De afbeelding zal niet breder zijn dan het oorspronkelijke formaat */
+        height: auto; /* Behoudt de juiste verhoudingen van de afbeelding */
+        margin-top: 20px; /* Voeg wat ruimte toe boven de afbeelding */
+    }
+</style>
+
+</body>
+</html>

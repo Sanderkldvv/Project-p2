@@ -1,0 +1,135 @@
+/* Algemene stijlen voor het hele document */
+body {
+    font-family: Arial, sans-serif; /* Lettertype instellen */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: darkblue; /* Achtergrondkleur van de pagina */
+}
+
+/* Stijlen voor de header van de pagina */
+header {
+    background-color: black;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Stijlen voor het navigatiegedeelte van de pagina */
+nav {
+    background-color: black;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; /* Menu-items gelijkmatig verspreiden over de breedte van het navigatiegebied */
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+nav a:hover {
+    color: lightblue; /* Kleur veranderen bij het zweven over een link */
+}
+
+/* Stijlen voor de dropdown-menu's in het navigatiegebied */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: black;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 120px;
+    min-height: 40px;
+}
+
+.dropdown-content2 {
+    display: none;
+    position: absolute;
+    background-color: black;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 110px;
+    min-height: 60px;
+}
+
+.dropdown2 {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown2:hover .dropdown-content2 {
+    display: block; /* Tonen van het dropdown-menu bij zweven */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Tonen van het dropdown-menu bij zweven */
+}
+
+/* Stijlen voor het hoofdgedeelte van de pagina */
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* Stijlen voor tekstblokken in het hoofdgedeelte */
+.text-block {
+    width: 45%;
+    margin: 20px;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    height: 30; /* Hoogte instellen (waarschijnlijk ontbreekt 'px' hier) */
+    padding-bottom: 5%;
+    position: relative;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+/* Stijlen voor het voettekstgedeelte van de pagina */
+footer {
+    background-color: black;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Stijlen voor groene knoppen */
+.green-button {
+    padding: 10px;
+    font-size: 1.2em;
+    background-color: #27ae60;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.green-button:hover {
+    background-color: #219653; /* Achtergrondkleur veranderen bij zweven over de knop */
+}
